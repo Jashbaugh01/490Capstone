@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<style>
+  h1 {
+  color: rgb(255, 255, 255);
+  font-family: verdana;
+  font-size: 300%;
+  text-align: center;
+  }
+  p {
+  color: rgb(255, 255, 255);
+  font-family: verdana;
+  font-size: 160%;
+  text-align: center;
+  }
+  body {
+    background-color: rgb(61, 127, 197);
+    text-align: center;
+    background-image: linear-gradient(to bottom right, rgb(47, 75, 112), rgb(52, 179, 242));
+  }
+  .button {
+  background-color: #000000; /* Green */
+  border: none;
+  color: rgb(31, 23, 114);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  }
+.button1 {
+  background-color: silver; 
+  color: black; 
+  border: 2px solid #000000;
+  }
+
+.button1:hover {
+  background-color: #ffffff;
+  color: black;
+  }
+
+.button2 {
+  background-color: silver; 
+  color: black; 
+  border: 2px solid #000000;
+  }
+
+.button2:hover {
+  background-color: #ffffff;
+  color: black;
+  }
+  
+</style>
+<body>
+
+<h1>Polygonal Data Tracker</h1>
+<p>Click the button to benchmark your coordinates, press more often for more accurate vertices.</p>
+
+<button class="button button1" onclick="getLocation()">Stamp</button>
+<button class="button button2" onclick="show()">Display Coords</button>
+
+
+<form action="/getLoc" method="POST">
+<label for="coords">Enter Coordinates Here:</label><br>
+<input type="text" id="coords" name="coords"><br>
+<input type="submit" value="submit">
+<input type="reset">
+</form>
+
+<p id="demo"></p>
+<script>
+var x = document.getElementById("demo");
+var arr = []
+function getLocation() {
+  if (navigator.geolocation) {
+  	navigator.geolocation.getCurrentPosition(addElem);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function addElem(position) {
+  arr.push([position.coords.latitude, position.coords.longitude])
+  x.innerHTML = "Stamped at:" + " Lat: " + position.coords.latitude+ " " + " Long: " + position.coords.longitude
+}
+
+function show() {
+  x.innerHTML = "Your Collected Coordinates are "+ arr
+  return arr;
+
+}
+
+
+</script>
+
+</body>
+</html>
