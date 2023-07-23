@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to benchmark your Coordinates, Press more Often for more accurate Vertices.</p>
+<button onclick="getLocation()">Stamp</button>
+<button onclick="show()">Display Coords</button>
+<button onclick="loadArr()">Load</button>
+
+
+<form action="/getLoc" method="POST">
+<input type="hidden" id = "coords" name = "coords" value = "">
+<input type="submit" value="submit">
+<input type="reset">
+</form>
+
+
+
+<p id="demo"></p>
+<script>
+var x = document.getElementById("demo");
+var arr = []
+function getLocation() {
+  if (navigator.geolocation) {
+  	navigator.geolocation.getCurrentPosition(addElem);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function addElem(position) {
+  arr.push([position.coords.latitude, position.coords.longitude])
+  x.innerHTML = "Stamped at:" + " Lat: " + position.coords.latitude+ " " + " Long: " + position.coords.longitude
+}
+
+function loadArr(){
+    document.getElementById('coords').value = arr
+}
+
+function show() {
+  x.innerHTML = "Your Collected Coordinates are "+ arr
+}
+
+
+</script>
+
+</body>
+</html>
