@@ -49,6 +49,18 @@
   background-color: #ffffff;
   color: black;
   }
+
+.button3 {
+  background-color: silver; 
+  color: black; 
+  border: 2px solid #000000;
+  }
+
+.button3:hover {
+  background-color: #ffffff;
+  color: black;
+  }
+  
   
 </style>
 <body>
@@ -58,7 +70,7 @@
 
 <button class="button button1" onclick="getLocation()">Stamp</button>
 <button class="button button2"onclick="show()">Display Coords</button>
-<button onclick="loadArr()">Confirm Coordinates</button>
+<button class="button button3" onclick="loadArr()">Confirm Coordinates</button>
 
 
 <form action="/getLoc" method="POST">
