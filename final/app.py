@@ -27,7 +27,7 @@ def process_data():
     wkb_multipoint = dumps(multipoint)
     
     # Convert the list of points into a polygon
-    polygon = multipoint.convex_hull
+    polygon = f"POLYGON(({', '.join([f'{x} {y}' for x, y in points])}, {points[0][0]} {points[0][1]}))"
     
     #insert_loc('Flask', wkb_multipoint)
     insert_loc('Flask', polygon)
@@ -50,7 +50,7 @@ def get_conn():
 
 def insert_loc(name, loc):
     """ insert a new location into the multip_geom_data table """
-    insert_query = '''INSERT INTO multip_geom_data (name, geom) VALUES (%s, %s) RETURNING id;'''
+    insert_query = '''INSERT INTO polygon_geom_data (name, geom) VALUES (%s, %s) RETURNING id;'''
     conn = None
     loc_id = None
     try:
@@ -60,7 +60,7 @@ def insert_loc(name, loc):
         cur = conn.cursor()
         # execute the INSERT statement
         #cur.execute(insert_query, (name, f"MULTIPOINT(({loc}))"))
-        cur.execute(insert_query, (name, loc.wkt))
+        cur.execute(insert_query, (name, loc))
         # get the generated id back
         loc_id = cur.fetchone()[0]
         # commit the changes to the database
