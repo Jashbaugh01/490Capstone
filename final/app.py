@@ -20,10 +20,11 @@ def process_data():
     #data = request.data.decode('utf-8')
     data = request.json
     print(data)
-    points = [(d['longitude'], d['latitude']) for d in data]
+    dataPoints = data['dataPoints']
+    formData = data['formData']
+    points = [(d['longitude'], d['latitude']) for d in dataPoints]
      # Convert the list of points to a MultiPoint object
     multipoint = MultiPoint(points)
-    # Convert the MultiPoint object to a WKB (Well-Known Binary) representation
     wkb_multipoint = dumps(multipoint)
     
     # Convert the list of points into a polygon
